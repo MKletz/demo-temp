@@ -1,3 +1,4 @@
 ---
+# handlers file for win_branch_server
 - name: Reboot when feature installed
-    ansible.windows.win_reboot:
+  ansible.windows.win_reboot:
