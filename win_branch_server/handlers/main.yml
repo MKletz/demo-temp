@@ -1,0 +1,3 @@
+---
+- name: Reboot when feature installed
+    ansible.windows.win_reboot:

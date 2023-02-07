@@ -1,0 +1,23 @@
+---
+# tasks file for win_branch_server
+- name: Install file server features
+  ansible.windows.win_feature:
+    name:
+    - FS-FileServer
+    - FS-Resource-Manager
+    state: present
+  notify: Reboot when feature installed
+
+- name: Create directory structure
+  ansible.windows.win_file:
+    path: "{{ top_level_share }}{{ item }}"
+    state: directory
+  loop: "{{ share_names }}"
+
+- name: Create SMB share
+  ansible.windows.win_share:
+    name: branch_share
+    description: standard branch share
+    path: "{{ top_level_share }}"
+    list: false
+    full: everyone
