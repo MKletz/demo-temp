@@ -5,6 +5,6 @@
   tasks:
   - name: Create department groups
     community.windows.win_domain_group:
-      name: "{{ item.name }}"
+      name: "{{ item }}"
       scope: global
-    loop: "{{ group_names.split('\n') }}"
+    loop: "{{ group_names.splitlines() }}"
