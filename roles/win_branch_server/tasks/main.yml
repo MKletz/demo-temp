@@ -12,8 +12,7 @@
   ansible.windows.win_file:
     path: "{{ top_level_share }}{{ item }}"
     state: directory
-  loop:
-    - "{{ group_names.splitlines() }}"
+  loop: "{{ group_names.splitlines() }}"
 
 - name: Add Users ACL
   ansible.windows.win_acl:
@@ -23,8 +22,7 @@
     type: allow
     state: present
     inherit: ContainerInherit, ObjectInherit
-  loop:
-    - "{{ group_names.splitlines() }}"
+  loop: "{{ group_names.splitlines() }}"
 
 - name: Add management ACL
   ansible.windows.win_acl:
