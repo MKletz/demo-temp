@@ -4,3 +4,4 @@ share_names:
   - 'Accounting'
   - 'IT'
   - 'Facilities'
+ad_domain: 'ansible.local'

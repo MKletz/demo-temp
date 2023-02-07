@@ -8,11 +8,32 @@
     state: present
   notify: Reboot when feature installed
 
-- name: Create directory structure
-  ansible.windows.win_file:
-    path: "{{ top_level_share }}{{ item }}"
-    state: directory
-  loop: "{{ share_names }}"
+- name: Create department folders
+  block:
+    - name: Create directory
+      ansible.windows.win_file:
+        path: "{{ top_level_share }}{{ item }}"
+        state: directory
+
+    - name: Add Users ACL
+      ansible.windows.win_acl:
+        path: "{{ top_level_share }}{{ item }}"
+        user: "{{ ad_domain }}\\{{ item }}"
+        rights: Read,Write,Modify,Delete
+        type: allow
+        state: present
+        inherit: ContainerInherit, ObjectInherit
+  loop:
+      - "{{ group_names.splitlines() }}"
+
+- name: Add management ACL
+  ansible.windows.win_acl:
+    path: "{{ top_level_share }}"
+    user: "{{ ad_domain }}\\IT"
+    rights: FullControl
+    type: allow
+    state: present
+    inherit: ContainerInherit, ObjectInherit
 
 - name: Create SMB share
   ansible.windows.win_share:
