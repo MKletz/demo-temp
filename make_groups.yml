@@ -1,0 +1,11 @@
+---
+- name: Create department groups
+  hosts: os_windows
+
+  tasks:
+  - name: Create department groups
+    community.windows.win_domain_group:
+      name: "{{ item.name }}"
+      scope: global
+    loop:
+      - "{{ group_names.splitlines() }}"
