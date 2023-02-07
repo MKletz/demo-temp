@@ -7,5 +7,4 @@
     community.windows.win_domain_group:
       name: "{{ item.name }}"
       scope: global
-    loop:
-      - "{{ group_names.splitlines() }}"
+    loop: "{{ group_names.splitlines() }}"
