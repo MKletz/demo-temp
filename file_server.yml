@@ -3,4 +3,6 @@
   hosts: os_windows
 
   roles:
-    - win_branch_server
+    - role: win_branch_server
+      vars:
+        share_names: "{{ group_names.splitlines() }}"
